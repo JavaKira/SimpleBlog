@@ -1,19 +1,20 @@
 package com.example.simpleblog.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "posts")
-public class Post {
+public class Post implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     private String text;
     private Date date;
 
-    public Post(Long id, String text, Date date) {
+    public Post(int id, String text, Date date) {
         this.id = id;
         this.text = text;
         this.date = date;
@@ -23,11 +24,11 @@ public class Post {
         date = new Date();
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 

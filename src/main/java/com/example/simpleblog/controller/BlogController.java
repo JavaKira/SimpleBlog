@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,5 +27,14 @@ public class BlogController {
         model.addAttribute("posts", posts);
         model.addAttribute("authorized", request.getSession().getAttribute("authorized"));
         return "blog/news";
+    }
+
+    @PostMapping
+    public String writePost(HttpServletRequest request)
+    {
+        Post post = new Post();
+        post.setText(request.getParameter("text"));
+        postService.add(post);
+        return "redirect:/blog";
     }
 }

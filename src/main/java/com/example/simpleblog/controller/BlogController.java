@@ -1,6 +1,7 @@
 package com.example.simpleblog.controller;
 
 import com.example.simpleblog.entity.Post;
+import com.example.simpleblog.entity.User;
 import com.example.simpleblog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,7 +36,7 @@ public class BlogController {
         }
 
         model.addAttribute("posts", posts);
-        model.addAttribute("authorized", request.getSession().getAttribute("authorized"));
+        model.addAttribute("user", (User) request.getSession().getAttribute("user"));
         return "blog/news";
     }
 

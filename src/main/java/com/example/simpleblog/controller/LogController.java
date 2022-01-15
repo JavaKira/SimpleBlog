@@ -29,7 +29,6 @@ public class LogController {
         HttpSession session = request.getSession();
         User user = userService.getByLogin(request.getParameter("login"));
         session.setAttribute("user", user);
-        session.setAttribute("authorized", user != null);
         return "redirect:/blog";
     }
 }

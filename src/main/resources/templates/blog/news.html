@@ -14,7 +14,7 @@
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col">
-                            <input type="text" name="text" class="form-control" placeholder="text" th:value="${editable_post} != null ? ${editable_post.text} : ''">
+                            <textarea name="text" class="form-control" placeholder="text" th:text="${editable_post} != null ? ${editable_post.text} : ''" style="resize: none"></textarea>
                         </div>
                         <div class="col-6">
                             <button type="submit" class="btn btn-light">send</button>

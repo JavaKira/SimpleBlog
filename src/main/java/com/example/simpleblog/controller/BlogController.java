@@ -42,7 +42,6 @@ public class BlogController {
     @PatchMapping
     public String rewritePost(HttpServletRequest request)
     {
-        System.out.println(request.getParameter("editable_post_id"));
         if (request.getParameter("editable_post_id") != null)
         {
             try {

@@ -1,6 +1,5 @@
 package com.example.simpleblog.controller;
 
-import com.example.simpleblog.entity.User;
 import com.example.simpleblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/log")
@@ -26,20 +24,17 @@ public class LogController {
     @PostMapping
     private String loginUser(HttpServletRequest request)
     {
-        HttpSession session = request.getSession();
-        User user = userService.getByLogin(request.getParameter("login"));
-        if (!request.getParameter("password").equals(user.getPassword()))
-            return "redirect:/log";
-
-        session.setAttribute("user", user);
-        return "redirect:/blog";
+        return userService.login(
+                request.getParameter("login"),
+                request.getParameter("password"),
+                request.getSession()
+        ) ? "redirect:/log" : "redirect:/blog";
     }
 
     @PostMapping("/logout")
     private String logoutUser(HttpServletRequest request)
     {
-        HttpSession session = request.getSession();
-        session.setAttribute("user", null);
+        userService.logout(request.getSession());
         return "redirect:/blog";
     }
 }

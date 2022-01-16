@@ -31,4 +31,12 @@ public class LogController {
         session.setAttribute("user", user);
         return "redirect:/blog";
     }
+
+    @PostMapping("/logout")
+    private String logoutUser(HttpServletRequest request)
+    {
+        HttpSession session = request.getSession();
+        session.setAttribute("user", null);
+        return "redirect:/blog";
+    }
 }

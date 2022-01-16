@@ -28,6 +28,9 @@ public class LogController {
     {
         HttpSession session = request.getSession();
         User user = userService.getByLogin(request.getParameter("login"));
+        if (!request.getParameter("password").equals(user.getPassword()))
+            return "redirect:/log";
+
         session.setAttribute("user", user);
         return "redirect:/blog";
     }

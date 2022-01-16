@@ -13,11 +13,13 @@ public class User implements Serializable {
 
     private String nickname;
     private String login;
+    private String password;
 
-    public User(Integer id, String nickname, String login) {
+    public User(Integer id, String nickname, String login, String password) {
         this.id = id;
         this.nickname = nickname;
         this.login = login;
+        this.password = password;
     }
 
     public User() {
@@ -46,5 +48,13 @@ public class User implements Serializable {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

@@ -76,6 +76,7 @@ public class BlogController {
     public String writePost(HttpServletRequest request)
     {
         Post post = new Post();
+        post.setUserId(((User) request.getSession().getAttribute("user")).getId());
         post.setText(request.getParameter("text"));
         postService.add(post);
         return "redirect:/blog";

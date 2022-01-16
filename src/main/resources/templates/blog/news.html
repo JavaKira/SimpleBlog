@@ -48,6 +48,7 @@
                 <div class="bg-light text-black">
                     <p th:text="${post.text}">text</p>
                     <p th:text="${post.date}">date</p>
+                    <p th:text="'author ' + ${post.userId}">userId</p>
                     <div th:if="${user} != null" class="d-flex align-items-center justify-content-between">
                         <div class="p-2">
                             <form th:action="@{/blog}">

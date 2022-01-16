@@ -6,7 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserService implements IUserService {
@@ -34,13 +38,19 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public boolean login(String login, String password, HttpSession session) {
+    public List<String> login(String login, String password, HttpSession session) {
+        List<String> errors = new ArrayList<>();
         User user = getByLogin(login);
-        if (!password.equals(user.getPassword()))
-            return false;
+        if (user == null)
+            errors.add("login");
 
+        if (user != null && !password.equals(user.getPassword()))
+            errors.add("password");
+
+        if (errors.size() == 0)
         session.setAttribute("user", user);
-        return true;
+
+        return errors;
     }
 
     @Override

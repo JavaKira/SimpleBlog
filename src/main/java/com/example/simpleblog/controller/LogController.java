@@ -3,11 +3,13 @@ package com.example.simpleblog.controller;
 import com.example.simpleblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequestMapping("/log")
@@ -22,13 +24,15 @@ public class LogController {
     }
 
     @PostMapping
-    private String loginUser(HttpServletRequest request)
+    private String loginUser(Model model, HttpServletRequest request)
     {
-        return userService.login(
+        List<String> errors = userService.login(
                 request.getParameter("login"),
                 request.getParameter("password"),
                 request.getSession()
-        ) ? "redirect:/log" : "redirect:/blog";
+        );
+        model.addAttribute("errors", errors);
+        return errors.size() == 0 ? "redirect:/blog" : "log/login";
     }
 
     @PostMapping("/logout")

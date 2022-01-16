@@ -14,7 +14,7 @@ public interface IUserService {
 
     void add(User user);
 
-    boolean login(String login, String password, HttpSession session);
+    List<String> login(String login, String password, HttpSession session);
 
     void logout(HttpSession session);
 }

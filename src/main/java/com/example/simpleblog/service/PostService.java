@@ -26,4 +26,9 @@ public class PostService implements IPostService {
     public void add(Post data) {
         repository.save(data);
     }
+
+    @Override
+    public void delete(Post post) {
+        repository.delete(post);
+    }
 }

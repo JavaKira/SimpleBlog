@@ -28,28 +28,40 @@
     <div class="row align-items-center">
         <div class="col"></div>
         <div class="col-6">
-            <form th:action="${editable_post} != null ? '/blog?editable_post_id=' + ${editable_post.id} : '/blog'" th:method="${editable_post} != null ? 'patch' : 'post'" style="display:inline-block; width: 100%" class="bg-white text-dark">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <textarea name="text" class="form-control" placeholder="text" th:text="${editable_post} != null ? ${editable_post.text} : ''" style="resize: none"></textarea>
-                        </div>
-                        <div class="col-6">
-                            <button type="submit" class="btn btn-dark">send</button>
+            <div th:if="${user} != null">
+                <form th:action="${editable_post} != null ? '/blog?editable_post_id=' + ${editable_post.id} : '/blog'" th:method="${editable_post} != null ? 'patch' : 'post'" style="display:inline-block; width: 100%" class="bg-white text-dark">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <textarea name="text" class="form-control" placeholder="text" th:text="${editable_post} != null ? ${editable_post.text} : ''" style="resize: none"></textarea>
+                            </div>
+                            <div class="col-6">
+                                <button type="submit" class="btn btn-dark">send</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
-            <br/>
-            <br/>
+                </form>
+                <br/>
+                <br/>
+            </div>
             <div th:each="post : ${posts}">
                 <div class="bg-light text-black">
                     <p th:text="${post.text}">text</p>
                     <p th:text="${post.date}">date</p>
-                    <form th:action="@{/blog}">
-                        <input type="hidden" name="editable_post_id" th:value="${post.id}">
-                        <button type="submit" class="btn btn-dark">edit</button>
-                    </form>
+                    <div th:if="${user} != null" class="d-flex align-items-center justify-content-between">
+                        <div class="p-2">
+                            <form th:action="@{/blog}">
+                                <input type="hidden" name="editable_post_id" th:value="${post.id}">
+                                <button type="submit" class="btn btn-dark">edit</button>
+                            </form>
+                        </div>
+                        <div class="p-2">
+                            <form th:action="@{/blog}" th:method="delete">
+                                <input type="hidden" name="editable_post_id" th:value="${post.id}">
+                                <button type="submit" class="btn btn-dark">delete</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 <br/>
             </div>

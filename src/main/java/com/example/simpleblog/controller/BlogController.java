@@ -6,10 +6,7 @@ import com.example.simpleblog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
@@ -49,6 +46,23 @@ public class BlogController {
                 Post editablePost = postService.getByID(Integer.parseInt(request.getParameter("editable_post_id")));
                 editablePost.setText(request.getParameter("text"));
                 postService.add(editablePost);
+            } catch (NumberFormatException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        return "redirect:/blog";
+    }
+
+    @DeleteMapping
+    public String deletePost(HttpServletRequest request)
+    {
+        if (request.getParameter("editable_post_id") != null)
+        {
+            try {
+                Post editablePost = postService.getByID(Integer.parseInt(request.getParameter("editable_post_id")));
+                postService.delete(editablePost);
             } catch (NumberFormatException e)
             {
                 e.printStackTrace();

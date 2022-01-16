@@ -12,4 +12,6 @@ public interface IPostService {
     List<Post> getAll();
 
     void add(Post data);
+
+    void delete(Post post);
 }

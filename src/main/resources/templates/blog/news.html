@@ -22,7 +22,7 @@
             <form th:if="${user} == null" th:action="@{/log}">
                 <button type="submit" class="btn btn-link">log in</button>
             </form>
-            <form th:if="${user} != null" th:action="@{/log}" th:method="post">
+            <form th:if="${user} != null" th:action="@{/log/logout}" th:method="post">
                 <button type="submit" class="btn btn-link">log out</button>
             </form>
         </div>

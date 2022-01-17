@@ -3,6 +3,7 @@ package com.example.simpleblog.controller;
 import com.example.simpleblog.entity.Post;
 import com.example.simpleblog.entity.User;
 import com.example.simpleblog.service.PostService;
+import com.example.simpleblog.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,8 @@ import java.util.List;
 public class BlogController {
     @Autowired
     private PostService postService;
+    @Autowired
+    private SessionService sessionService;
 
     @GetMapping
     public String showPosts(Model model, HttpServletRequest request)
@@ -33,18 +36,19 @@ public class BlogController {
         }
 
         model.addAttribute("posts", posts);
-        model.addAttribute("user", (User) request.getSession().getAttribute("user"));
+        model.addAttribute("user", sessionService.getUser(request));
         return "blog/news";
     }
 
     @PatchMapping
     public String rewritePost(HttpServletRequest request)
     {
-        if (request.getParameter("editable_post_id") != null && request.getSession().getAttribute("user") != null)
+        User user = sessionService.getUser(request);
+        if (request.getParameter("editable_post_id") != null && user != null)
         {
             try {
                 Post editablePost = postService.getByID(Integer.parseInt(request.getParameter("editable_post_id")));
-                if (((User) request.getSession().getAttribute("user")).getId().equals(editablePost.getUserId())) {
+                if (user.getId().equals(editablePost.getUserId())) {
                     editablePost.setText(request.getParameter("text"));
                     postService.add(editablePost);
                 }
@@ -78,7 +82,7 @@ public class BlogController {
     public String writePost(HttpServletRequest request)
     {
         Post post = new Post();
-        post.setUserId(((User) request.getSession().getAttribute("user")).getId());
+        post.setUserId(sessionService.getUser(request).getId());
         post.setText(request.getParameter("text"));
         postService.add(post);
         return "redirect:/blog";

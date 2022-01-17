@@ -64,11 +64,14 @@ public class BlogController {
     @DeleteMapping
     public String deletePost(HttpServletRequest request)
     {
-        if (request.getParameter("editable_post_id") != null)
+        User user = sessionService.getUser(request);
+        if (request.getParameter("editable_post_id") != null && user != null)
         {
             try {
                 Post editablePost = postService.getByID(Integer.parseInt(request.getParameter("editable_post_id")));
-                postService.delete(editablePost);
+                if (user.getId().equals(editablePost.getUserId())) {
+                    postService.delete(editablePost);
+                }
             } catch (NumberFormatException e)
             {
                 e.printStackTrace();

@@ -40,12 +40,14 @@ public class BlogController {
     @PatchMapping
     public String rewritePost(HttpServletRequest request)
     {
-        if (request.getParameter("editable_post_id") != null)
+        if (request.getParameter("editable_post_id") != null && request.getSession().getAttribute("user") != null)
         {
             try {
                 Post editablePost = postService.getByID(Integer.parseInt(request.getParameter("editable_post_id")));
-                editablePost.setText(request.getParameter("text"));
-                postService.add(editablePost);
+                if (((User) request.getSession().getAttribute("user")).getId().equals(editablePost.getUserId())) {
+                    editablePost.setText(request.getParameter("text"));
+                    postService.add(editablePost);
+                }
             } catch (NumberFormatException e)
             {
                 e.printStackTrace();

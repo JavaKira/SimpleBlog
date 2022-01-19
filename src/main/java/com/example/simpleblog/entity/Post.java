@@ -3,6 +3,7 @@ package com.example.simpleblog.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "posts")
@@ -14,6 +15,9 @@ public class Post implements Serializable {
     private String text;
     private Date date;
     private int userId;
+
+    @Transient
+    private List<PostComment> postComments;
 
     public Post(int id, int userId, String text, Date date) {
         this.id = id;
@@ -56,5 +60,13 @@ public class Post implements Serializable {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public List<PostComment> getPostComments() {
+        return postComments;
+    }
+
+    public void setPostComments(List<PostComment> postComments) {
+        this.postComments = postComments;
     }
 }

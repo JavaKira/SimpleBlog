@@ -41,6 +41,11 @@ public class PostService implements IPostService {
     }
 
     @Override
+    public void saveComment(PostComment comment) {
+        commentRepository.save(comment);
+    }
+
+    @Override
     public void delete(Post post) {
         repository.delete(post);
     }

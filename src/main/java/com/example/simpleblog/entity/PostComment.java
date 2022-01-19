@@ -1,20 +1,20 @@
 package com.example.simpleblog.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "comments")
-public class PostComment {
+public class PostComment implements Serializable {
     @Id
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     private int userId;
     private int postId;
     private String text;
 
-    public PostComment(Long id, int userID, int postId, String text) {
+    public PostComment(int id, int userID, int postId, String text) {
         this.id = id;
         this.userId = userID;
         this.postId = postId;
@@ -24,11 +24,11 @@ public class PostComment {
     public PostComment() {
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 

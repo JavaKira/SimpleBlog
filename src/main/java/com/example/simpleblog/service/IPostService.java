@@ -16,5 +16,7 @@ public interface IPostService {
 
     void add(Post data);
 
+    void saveComment(PostComment comment);
+
     void delete(Post post);
 }

@@ -1,6 +1,7 @@
 package com.example.simpleblog.controller;
 
 import com.example.simpleblog.entity.Post;
+import com.example.simpleblog.entity.PostComment;
 import com.example.simpleblog.entity.User;
 import com.example.simpleblog.service.PostService;
 import com.example.simpleblog.service.SessionService;
@@ -44,6 +45,23 @@ public class BlogController {
     public String rewritePost(HttpServletRequest request)
     {
         User user = sessionService.getUser(request);
+        if (request.getParameter("comment_post_id") != null && user != null)
+        {
+            try {
+                Post commentPost = postService.getByID(Integer.parseInt(request.getParameter("comment_post_id")));
+                if (user.getId().equals(commentPost.getUserId())) {
+                    PostComment postComment = new PostComment();
+                    postComment.setUserId(user.getId());
+                    postComment.setText(request.getParameter("comment_text"));
+                    postComment.setPostId(commentPost.getId());
+                    postService.saveComment(postComment);
+                }
+            } catch (NumberFormatException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
         if (request.getParameter("editable_post_id") != null && user != null)
         {
             try {

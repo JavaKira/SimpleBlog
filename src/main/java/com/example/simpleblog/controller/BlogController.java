@@ -49,13 +49,11 @@ public class BlogController {
         {
             try {
                 Post commentPost = postService.getByID(Integer.parseInt(request.getParameter("comment_post_id")));
-                if (user.getId().equals(commentPost.getUserId())) {
-                    PostComment postComment = new PostComment();
-                    postComment.setUserId(user.getId());
-                    postComment.setText(request.getParameter("comment_text"));
-                    postComment.setPostId(commentPost.getId());
-                    postService.saveComment(postComment);
-                }
+                PostComment postComment = new PostComment();
+                postComment.setUserId(user.getId());
+                postComment.setText(request.getParameter("comment_text"));
+                postComment.setPostId(commentPost.getId());
+                postService.saveComment(postComment);
             } catch (NumberFormatException e)
             {
                 e.printStackTrace();

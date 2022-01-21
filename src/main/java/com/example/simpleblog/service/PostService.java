@@ -2,7 +2,9 @@ package com.example.simpleblog.service;
 
 import com.example.simpleblog.entity.Post;
 import com.example.simpleblog.entity.PostComment;
+import com.example.simpleblog.entity.PostLike;
 import com.example.simpleblog.repository.PostCommentRepository;
+import com.example.simpleblog.repository.PostLikeRepository;
 import com.example.simpleblog.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,11 +17,14 @@ public class PostService implements IPostService {
     private PostRepository repository;
     @Autowired
     private PostCommentRepository commentRepository;
+    @Autowired
+    private PostLikeRepository likeRepository;
 
     @Override
     public Post getByID(int id) {
         Post post = repository.getById(id);
         post.setPostComments(getCommentsByPostId(post.getId()));
+        post.setLikes(getLikesByPostId(post.getId()));
         return post;
     }
 
@@ -29,9 +34,17 @@ public class PostService implements IPostService {
     }
 
     @Override
+    public List<PostLike> getLikesByPostId(int id) {
+        return likeRepository.findAll().stream().filter(like -> like.getPostId() == id).toList();
+    }
+
+    @Override
     public List<Post> getAll() {
         List<Post> posts = repository.findAll();
-        posts.forEach(post -> post.setPostComments(getCommentsByPostId(post.getId())));
+        posts.forEach(post -> {
+            post.setLikes(getLikesByPostId(post.getId()));
+            post.setPostComments(getCommentsByPostId(post.getId()));
+        });
         return posts;
     }
 

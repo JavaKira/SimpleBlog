@@ -2,7 +2,6 @@ package com.example.simpleblog.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +18,8 @@ public class Post implements Serializable {
 
     @Transient
     private List<PostComment> postComments;
+    @Transient
+    private List<PostLike> likes;
 
     public Post(int id, int userId, String text, Date date) {
         this.id = id;
@@ -69,5 +70,13 @@ public class Post implements Serializable {
 
     public void setPostComments(List<PostComment> postComments) {
         this.postComments = postComments;
+    }
+
+    public List<PostLike> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<PostLike> likes) {
+        this.likes = likes;
     }
 }

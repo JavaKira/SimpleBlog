@@ -67,4 +67,9 @@ public class PostService implements IPostService {
     public void delete(Post post) {
         repository.delete(post);
     }
+
+    @Override
+    public void deleteLike(PostLike like) {
+        likeRepository.delete(like);
+    }
 }

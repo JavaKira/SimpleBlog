@@ -24,4 +24,6 @@ public interface IPostService {
     void saveLike(PostLike like);
 
     void delete(Post post);
+
+    void deleteLike(PostLike like);
 }

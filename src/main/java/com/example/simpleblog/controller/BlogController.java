@@ -2,6 +2,7 @@ package com.example.simpleblog.controller;
 
 import com.example.simpleblog.entity.Post;
 import com.example.simpleblog.entity.PostComment;
+import com.example.simpleblog.entity.PostLike;
 import com.example.simpleblog.entity.User;
 import com.example.simpleblog.service.PostService;
 import com.example.simpleblog.service.SessionService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/blog")
@@ -45,6 +47,25 @@ public class BlogController {
     public String rewritePost(HttpServletRequest request)
     {
         User user = sessionService.getUser(request);
+        if (request.getParameter("like_post_id") != null && user != null)
+        {
+            try {
+                Post commentPost = postService.getByID(Integer.parseInt(request.getParameter("like_post_id")));
+                var likes = commentPost.getLikes().stream().filter(like -> like.getUserId() == user.getId()).findAny();
+                if (likes.isEmpty()) {
+                    PostLike postLike = new PostLike();
+                    postLike.setUserId(user.getId());
+                    postLike.setPostId(commentPost.getId());
+                    postService.saveLike(postLike);
+                } else {
+                    postService.deleteLike(likes.orElse(null));
+                }
+            } catch (NumberFormatException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
         if (request.getParameter("comment_post_id") != null && user != null)
         {
             try {

@@ -21,5 +21,7 @@ public interface IPostService {
 
     void saveComment(PostComment comment);
 
+    void saveLike(PostLike like);
+
     void delete(Post post);
 }

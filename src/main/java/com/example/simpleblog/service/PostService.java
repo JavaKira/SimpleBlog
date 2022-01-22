@@ -59,6 +59,11 @@ public class PostService implements IPostService {
     }
 
     @Override
+    public void saveLike(PostLike like) {
+        likeRepository.save(like);
+    }
+
+    @Override
     public void delete(Post post) {
         repository.delete(post);
     }

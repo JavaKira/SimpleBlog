@@ -50,7 +50,7 @@
                 <br/>
             </div>
             <div th:each="post : ${posts}">
-                <div class="bg-light text-black">
+                <div class="bg-light text-black" th:id="${post.id}">
                     <p th:text="${post.text}">text</p>
                     <p th:text="${post.date}">date</p>
                     <p th:text="'author ' + ${post.userId}">userId</p>

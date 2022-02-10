@@ -13,7 +13,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/log")
-public class LogController {
+public class UserController {
     @Autowired
     private UserService userService;
 

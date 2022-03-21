@@ -53,8 +53,8 @@
                 <div class="bg-light text-black" th:id="${post.id}">
                     <p th:text="${post.text}">text</p>
                     <p th:text="${post.date}">date</p>
-                    <p th:text="'author ' + ${post.userId}">userId</p>
-                    <div th:if="${user} != null and ${post.userId} == ${user.id}" class="d-flex align-items-center justify-content-between">
+                    <p th:text="'author ' + ${post.user.getNickname()}">userId</p>
+                    <div th:if="${user} != null and ${post.user} == ${user}" class="d-flex align-items-center justify-content-between">
                         <div class="p-2">
                             <form th:action="@{/blog}">
                                 <input type="hidden" name="editable_post_id" th:value="${post.id}">

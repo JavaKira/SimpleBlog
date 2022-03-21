@@ -20,16 +20,17 @@ public class Post implements Serializable {
 
     private String text;
     private Date date;
-    private int userId;
+    @OneToOne
+    private User user;
 
     @Transient
     private List<PostComment> postComments;
     @Transient
     private List<PostLike> likes;
 
-    public Post(int id, int userId, String text, Date date) {
+    public Post(int id, User user, String text, Date date) {
         this.id = id;
-        this.userId = userId;
+        this.user = user;
         this.text = text;
         this.date = date;
     }

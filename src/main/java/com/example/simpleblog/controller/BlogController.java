@@ -85,7 +85,7 @@ public class BlogController {
         {
             try {
                 Post editablePost = postService.getByID(Integer.parseInt(request.getParameter("editable_post_id")));
-                if (user.getId().equals(editablePost.getUserId())) {
+                if (user.equals(editablePost.getUser())) {
                     editablePost.setText(request.getParameter("text"));
                     postService.add(editablePost);
                 }
@@ -106,7 +106,7 @@ public class BlogController {
         {
             try {
                 Post editablePost = postService.getByID(Integer.parseInt(request.getParameter("editable_post_id")));
-                if (user.getId().equals(editablePost.getUserId())) {
+                if (user.equals(editablePost.getUser())) {
                     postService.delete(editablePost);
                 }
             } catch (NumberFormatException e)
@@ -122,7 +122,7 @@ public class BlogController {
     public String writePost(HttpServletRequest request)
     {
         Post post = new Post();
-        post.setUserId(sessionService.getUser(request).getId());
+        post.setUser(sessionService.getUser(request));
         post.setText(request.getParameter("text"));
         postService.add(post);
         return "redirect:/blog";

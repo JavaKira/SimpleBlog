@@ -1,10 +1,16 @@
 package com.example.simpleblog.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "posts")
 public class Post implements Serializable {
@@ -26,57 +32,5 @@ public class Post implements Serializable {
         this.userId = userId;
         this.text = text;
         this.date = date;
-    }
-
-    public Post() {
-        date = new Date();
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public List<PostComment> getPostComments() {
-        return postComments;
-    }
-
-    public void setPostComments(List<PostComment> postComments) {
-        this.postComments = postComments;
-    }
-
-    public List<PostLike> getLikes() {
-        return likes;
-    }
-
-    public void setLikes(List<PostLike> likes) {
-        this.likes = likes;
     }
 }

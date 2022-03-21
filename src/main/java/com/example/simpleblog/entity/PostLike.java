@@ -1,7 +1,12 @@
 package com.example.simpleblog.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "likes")
 public class PostLike {
@@ -15,34 +20,6 @@ public class PostLike {
     public PostLike(int id, int userId, int postId) {
         this.id = id;
         this.userId = userId;
-        this.postId = postId;
-    }
-
-    public PostLike() {
-
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public int getPostId() {
-        return postId;
-    }
-
-    public void setPostId(int postId) {
         this.postId = postId;
     }
 }

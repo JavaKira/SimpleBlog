@@ -34,4 +34,8 @@ public class Post implements Serializable {
         this.text = text;
         this.date = date;
     }
+
+    public boolean containUserLike(User user) {
+        return likes.stream().anyMatch(postLike -> postLike.getUserId() == user.getId());
+    }
 }

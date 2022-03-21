@@ -71,7 +71,7 @@ public class BlogController {
             try {
                 Post commentPost = postService.getByID(Integer.parseInt(request.getParameter("comment_post_id")));
                 PostComment postComment = new PostComment();
-                postComment.setUserId(user.getId());
+                postComment.setUser(user);
                 postComment.setText(request.getParameter("comment_text"));
                 postComment.setPostId(commentPost.getId());
                 postService.saveComment(postComment);

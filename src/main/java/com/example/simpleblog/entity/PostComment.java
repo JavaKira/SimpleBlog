@@ -15,13 +15,14 @@ public class PostComment implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int userId;
+    @OneToOne
+    private User user;
     private int postId;
     private String text;
 
-    public PostComment(int id, int userID, int postId, String text) {
+    public PostComment(int id, User user, int postId, String text) {
         this.id = id;
-        this.userId = userID;
+        this.user = user;
         this.postId = postId;
         this.text = text;
     }

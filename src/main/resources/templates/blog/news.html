@@ -83,7 +83,7 @@
                         </form>
                     </div>
                     <div th:each="comment : ${post.postComments}">
-                        <p th:text="${comment.userId}">user</p>
+                        <p th:text="${comment.getUser().getNickname()}">user</p>
                         <p th:text="${comment.text}"></p>
                     </div>
                 </div>
